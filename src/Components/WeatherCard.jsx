@@ -6,7 +6,7 @@ function WeatherCard({ weatherData }){
 
     return(
         <section className="flex gap-10 flex-wrap justify-center items-center"> 
-            <div className="flex flex-col items-center p-8 rounded-md w-60 sm:px-12 dark:bg-gray-50 dark:text-gray-800 shadow-lg">
+            <div className="flex flex-col items-center p-8 rounded-md w-60 sm:px-12 dark:bg-gray-50 dark:text-gray-800 shadow-2xl">
                 <div className="text-center">
                     <h2 className="text-xl font-semibold">{weatherData?.location?.name}</h2>
                     <p className="text-sm dark:text-gray-600">{weatherData?.forecast?.forecastday[0].date.split("-")[1]}/{weatherData?.forecast?.forecastday[0].date.split("-")[2]}</p>
@@ -17,8 +17,9 @@ function WeatherCard({ weatherData }){
                 </div>
                 <p className="dark:text-gray-600">{weatherData?.forecast?.forecastday[0]?.day?.condition?.text}</p>
                 <p>Humidity : {weatherData?.forecast?.forecastday[0]?.day?.avghumidity}</p>
+                <button className="bg-cyan-300 mt-5  border-2 border-solid px-4 py-2 border-black rounded-lg hover:bg-cyan-500 hover:text-lg ease-in-out duration-75">View hourly Forecast</button>
             </div>
-            <div className="flex flex-col items-center p-8 rounded-md w-60 sm:px-12 dark:bg-gray-50 dark:text-gray-800 shadow-lg">
+            <div className="flex flex-col items-center p-8 rounded-md w-60 sm:px-12 dark:bg-gray-50 dark:text-gray-800 shadow-2xl">
                 <div className="text-center">
                     <h2 className="text-xl font-semibold">{weatherData?.location?.name}</h2>
                     <p className="text-sm dark:text-gray-600">{weatherData?.forecast?.forecastday[1].date.split("-")[1]}/{weatherData?.forecast?.forecastday[1].date.split("-")[2]}</p>
@@ -29,8 +30,9 @@ function WeatherCard({ weatherData }){
                 </div>
                 <p className="dark:text-gray-600">{weatherData?.forecast?.forecastday[1]?.day?.condition?.text}</p>
                 <p>Humidity : {weatherData?.forecast?.forecastday[1]?.day?.avghumidity}</p>
+                <button className="bg-cyan-300 mt-5  border-2 border-solid px-4 py-2 border-black rounded-lg hover:bg-cyan-500 hover:text-lg ease-in-out duration-75">View hourly Forecast</button>
             </div>
-            <div className="flex flex-col items-center p-8 rounded-md w-60 sm:px-12 dark:bg-gray-50 dark:text-gray-800 shadow-lg">
+            <div className="flex flex-col items-center p-8 rounded-md w-60 sm:px-12 dark:bg-gray-50 dark:text-gray-800 shadow-2xl">
                 <div className="text-center">
                     <h2 className="text-xl font-semibold">{weatherData?.location?.name}</h2>
                     <p className="text-sm dark:text-gray-600">{weatherData?.forecast?.forecastday[2].date.split("-")[1]}/{weatherData?.forecast?.forecastday[2].date.split("-")[2]}</p>
@@ -41,6 +43,7 @@ function WeatherCard({ weatherData }){
                 </div>
                 <p className="dark:text-gray-600">{weatherData?.forecast?.forecastday[2]?.day?.condition?.text}</p>
                 <p>Humidity : {weatherData?.forecast?.forecastday[2]?.day?.avghumidity}</p>
+                <button className="bg-cyan-300 mt-5  border-2 border-solid px-4 py-2 border-black rounded-lg hover:bg-cyan-500 hover:text-lg ease-in-out duration-75">View hourly Forecast</button>
             </div>
         </section>
     )
