@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { fetchWeatherData } from './Helpers/fetchData.js';
+import WeatherCard from "./Components/WeatherCard.jsx";
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
   const [aqiValue, setAqiValue] = useState(true);
   const [cityName, setCityName] = useState('');
-
+  const [dataFetched, setDataFetched] = useState(false);
+  
   async function getWeatherData(e) {
+    if(!cityName){
+      toast.error('Please enter city name');
+    }
+
+    setDataFetched(false);
     e.preventDefault();
     try {
       const weatherDataPromise = fetchWeatherData(cityName, aqiValue);
@@ -21,6 +28,9 @@ function App() {
       });
       const data = await weatherDataPromise;
       setWeatherData(data);
+      setDataFetched(true);
+      console.log(data);
+      setCityName("");
     } catch (err) {
       console.error(`Error fetching weather data: `, err);
     }
@@ -55,17 +65,8 @@ function App() {
         </button>
         <Toaster />
       </form>
-      {weatherData && (
-        <div>
-          <h2>Temperature in Celsius: {weatherData?.current?.temp_c}</h2>
-          <h2>Humidity: {weatherData?.current?.humidity}</h2>
-          <h2>Time: {(weatherData?.location?.localtime).split(" ")[1]}</h2>
-          <h2>Weather: {weatherData?.current?.condition?.text} <img src={weatherData?.current?.condition?.icon} alt="" /></h2>
-          {
-            aqiValue &&
-            (<h2>AQI : {weatherData?.current?.air_quality?.co}</h2>)
-          }
-        </div>
+      {dataFetched && (
+        <WeatherCard/>
       )}
     </>
   );
