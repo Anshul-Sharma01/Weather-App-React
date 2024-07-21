@@ -5,7 +5,6 @@ import WeatherCard from "./Components/WeatherCard.jsx";
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
-  const [aqiValue, setAqiValue] = useState(true);
   const [cityName, setCityName] = useState('');
   const [dataFetched, setDataFetched] = useState(false);
   
@@ -17,7 +16,7 @@ function App() {
     setDataFetched(false);
     e.preventDefault();
     try {
-      const weatherDataPromise = fetchWeatherData(cityName, aqiValue);
+      const weatherDataPromise = fetchWeatherData(cityName);
       toast.promise(weatherDataPromise, {
         loading: 'Fetching Weather Data for the requested Location',
         success: (data) => {
@@ -29,8 +28,7 @@ function App() {
       const data = await weatherDataPromise;
       setWeatherData(data);
       setDataFetched(true);
-      console.log(data);
-      setCityName("");
+      // console.log(data.current.condition.icon);
     } catch (err) {
       console.error(`Error fetching weather data: `, err);
     }
@@ -50,15 +48,6 @@ function App() {
             onChange={(e) => setCityName(e.target.value)}
           />
         </div>
-        <div className="flex gap-2">
-          <label htmlFor="aqi">AQI</label>
-          <input
-            type="checkbox"
-            id="aqi"
-            checked={aqiValue}
-            onChange={(e) => setAqiValue(e.target.checked)}
-          />
-        </div>
         <br />
         <button type="submit" className="text-md bg-slate-400 p-4 m-4 rounded-lg border-solid border-4 border-gray-500 text-white hover:text-slate-700 hover:bg-gray-300">
           Show Weather Data
@@ -66,7 +55,7 @@ function App() {
         <Toaster />
       </form>
       {dataFetched && (
-        <WeatherCard/>
+        <WeatherCard weatherData = {weatherData}/>
       )}
     </>
   );

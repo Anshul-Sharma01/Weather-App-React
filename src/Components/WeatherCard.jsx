@@ -1,32 +1,48 @@
 import React from "react";
 
 
-function WeatherCard(){
+function WeatherCard({ weatherData }){
+    // console.log(iconSrc);
 
     return(
-        <>
-            <div className="flex flex-col items-center p-8 rounded-md w-60 sm:px-12 dark:bg-gray-50 dark:text-gray-800">
+        <section className="flex gap-10 flex-wrap justify-center items-center"> 
+            <div className="flex flex-col items-center p-8 rounded-md w-60 sm:px-12 dark:bg-gray-50 dark:text-gray-800 shadow-lg">
                 <div className="text-center">
-                    <h2 className="text-xl font-semibold">Dubai</h2>
-                    <p className="text-sm dark:text-gray-600">July 29</p>
+                    <h2 className="text-xl font-semibold">{weatherData?.location?.name}</h2>
+                    <p className="text-sm dark:text-gray-600">{weatherData?.forecast?.forecastday[0].date.split("-")[1]}/{weatherData?.forecast?.forecastday[0].date.split("-")[2]}</p>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-32 h-32 p-6 dark:text-yellow-600 fill-current">
-                    <path d="M256,104c-83.813,0-152,68.187-152,152s68.187,152,152,152,152-68.187,152-152S339.813,104,256,104Zm0,272A120,120,0,1,1,376,256,120.136,120.136,0,0,1,256,376Z"></path>
-                    <rect width="32" height="48" x="240" y="16"></rect>
-                    <rect width="32" height="48" x="240" y="448"></rect>
-                    <rect width="48" height="32" x="448" y="240"></rect>
-                    <rect width="48" height="32" x="16" y="240"></rect>
-                    <rect width="32" height="45.255" x="400" y="393.373" transform="rotate(-45 416 416)"></rect>
-                    <rect width="32.001" height="45.255" x="80" y="73.373" transform="rotate(-45 96 96)"></rect>
-                    <rect width="45.255" height="32" x="73.373" y="400" transform="rotate(-45.001 96.002 416.003)"></rect>
-                    <rect width="45.255" height="32.001" x="393.373" y="80" transform="rotate(-45 416 96)"></rect>
-                </svg>
-                <div className="mb-2 text-3xl font-semibold">32°
-                    <span className="mx-1 font-normal">/</span>20°
+                <img src={`https:${weatherData?.forecast?.forecastday[0]?.day?.condition?.icon}`} alt="" />
+                <div className="mb-2 text-3xl font-semibold">{weatherData?.forecast?.forecastday[0].day?.maxtemp_c}°
+                    <span className="mx-1 font-normal">/</span>{weatherData?.forecast?.forecastday[0].day?.mintemp_c}°
                 </div>
-                <p className="dark:text-gray-600">Partly cloudy</p>
+                <p className="dark:text-gray-600">{weatherData?.forecast?.forecastday[0]?.day?.condition?.text}</p>
+                <p>Humidity : {weatherData?.forecast?.forecastday[0]?.day?.avghumidity}</p>
             </div>
-        </>
+            <div className="flex flex-col items-center p-8 rounded-md w-60 sm:px-12 dark:bg-gray-50 dark:text-gray-800 shadow-lg">
+                <div className="text-center">
+                    <h2 className="text-xl font-semibold">{weatherData?.location?.name}</h2>
+                    <p className="text-sm dark:text-gray-600">{weatherData?.forecast?.forecastday[1].date.split("-")[1]}/{weatherData?.forecast?.forecastday[1].date.split("-")[2]}</p>
+                </div>
+                <img src={`https:${weatherData?.forecast?.forecastday[1]?.day?.condition?.icon}`} alt="" />
+                <div className="mb-2 text-3xl font-semibold">{weatherData?.forecast?.forecastday[1].day?.maxtemp_c}°
+                    <span className="mx-1 font-normal">/</span>{weatherData?.forecast?.forecastday[1].day?.mintemp_c}°
+                </div>
+                <p className="dark:text-gray-600">{weatherData?.forecast?.forecastday[1]?.day?.condition?.text}</p>
+                <p>Humidity : {weatherData?.forecast?.forecastday[1]?.day?.avghumidity}</p>
+            </div>
+            <div className="flex flex-col items-center p-8 rounded-md w-60 sm:px-12 dark:bg-gray-50 dark:text-gray-800 shadow-lg">
+                <div className="text-center">
+                    <h2 className="text-xl font-semibold">{weatherData?.location?.name}</h2>
+                    <p className="text-sm dark:text-gray-600">{weatherData?.forecast?.forecastday[2].date.split("-")[1]}/{weatherData?.forecast?.forecastday[2].date.split("-")[2]}</p>
+                </div>
+                <img src={`https:${weatherData?.forecast?.forecastday[2]?.day?.condition?.icon}`} alt="" />
+                <div className="mb-2 text-3xl font-semibold">{weatherData?.forecast?.forecastday[2].day?.maxtemp_c}°
+                    <span className="mx-1 font-normal">/</span>{weatherData?.forecast?.forecastday[2].day?.mintemp_c}°
+                </div>
+                <p className="dark:text-gray-600">{weatherData?.forecast?.forecastday[2]?.day?.condition?.text}</p>
+                <p>Humidity : {weatherData?.forecast?.forecastday[2]?.day?.avghumidity}</p>
+            </div>
+        </section>
     )
 
 }
