@@ -11,6 +11,7 @@ function App() {
   async function getWeatherData(e) {
     if(!cityName){
       toast.error('Please enter city name');
+      return;
     }
 
     setDataFetched(false);
@@ -37,23 +38,26 @@ function App() {
   return (
     <>
       <h1 className="text-white text-center text-2xl bg-slate-700 p-4 m-2 font-mono">Weather-App-React</h1>
-      <form action="" className="flex justify-center items-center flex-col" onSubmit={getWeatherData}>
-        <div>
-          <label htmlFor="city">City Name: </label>
-          <input
-            type="text"
-            id="city"
-            className="border-solid border-2 border-slate-400"
-            value={cityName}
-            onChange={(e) => setCityName(e.target.value)}
-          />
-        </div>
-        <br />
-        <button type="submit" className="text-md bg-slate-400 p-4 m-4 rounded-lg border-solid border-4 border-gray-500 text-white hover:text-slate-700 hover:bg-gray-300">
-          Show Weather Data
-        </button>
-        <Toaster />
-      </form>
+      <div className="flex flex-col justify-center m-10 items-center min-h-[200px]">
+        <form className="flex justify-center items-center flex-col shadow-xl p-10 " onSubmit={getWeatherData}>
+          <div>
+            <input
+              type="text"
+              id="city"
+              className="border-solid border-2 rounded-lg border-slate-400 px-4 py-2"
+              value={cityName}
+              placeholder="enter city name.."
+              onChange={(e) => setCityName(e.target.value)}
+            />
+          </div>
+          <br />
+          <button type="submit" className="border-solid border-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-600 border-orange-400 text-lg">
+            Show Weather Data
+          </button>
+          <Toaster />
+        </form>
+
+      </div>
       {dataFetched && (
         <WeatherCard weatherData = {weatherData}/>
       )}
