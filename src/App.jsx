@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { fetchWeatherData } from './Helpers/fetchData.js';
 import WeatherCard from "./Components/WeatherCard.jsx";
+import HourlyCard from "./Components/HourlyCard.jsx";
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
@@ -37,21 +38,21 @@ function App() {
 
   return (
     <>
-      <h1 className="text-white text-center text-2xl bg-slate-700 p-4 m-2 font-mono">Weather-App-React</h1>
+      <h1 className="text-center text-3xl p-4 bg-blue-300">The Weather-App</h1>
       <div className="flex flex-col justify-center m-10 items-center min-h-[200px]">
-        <form className="flex justify-center items-center flex-col shadow-xl p-10 " onSubmit={getWeatherData}>
+        <form className="flex justify-center items-center flex-col shadow-xl p-10 min-w-[400px]" onSubmit={getWeatherData}>
           <div>
             <input
               type="text"
               id="city"
-              className="border-solid border-2 rounded-lg border-slate-400 px-4 py-2"
+              className=" tracking-widest uppercase border-solid border-2 rounded-lg  border-slate-400 px-6 py-2"
               value={cityName}
               placeholder="enter city name.."
               onChange={(e) => setCityName(e.target.value)}
             />
           </div>
           <br />
-          <button type="submit" className="border-solid border-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-600 border-orange-400 text-lg">
+          <button type="submit" className="border-solid border-2 px-4 py-2 bg-cyan-400 hover:bg-cyan-600 rounded-xl border-violet-400 text-lg">
             Show Weather Data
           </button>
           <Toaster />
@@ -59,8 +60,33 @@ function App() {
 
       </div>
       {dataFetched && (
-        <WeatherCard weatherData = {weatherData}/>
+        <>
+          <div>
+            <h2 className="text-2xl text-center m-4 p-4 bg-yellow-200 tracking-widest font-mono">3-Day forecast</h2>
+            <WeatherCard weatherData = {weatherData}/>
+          </div>
+          <div>
+            <h2 className="text-2xl text-center m-4 p-4 tracking-wdiest font-sans bg-lime-300">Hourly Forecast</h2>
+            {
+              weatherData?.forecast?.forecastday.map((ele,ind) => (
+                <div className="flex flex-row gap-10 flex-wrap m-2 justify-center items-center w-full">
+                  <h3 className="text-2xl font-serif tracking-widest">Day-{ind + 1}</h3>
+                  {ele.hour && ele.hour.map((el) => (
+                    <HourlyCard key={el.time_epoch} weatherData={el} />
+                  ))}
+
+                </div>
+              ))
+            }
+            {/* {
+              <HourlyCard weatherData={weatherData?.forecast?.forecastday[0].hour[16]}/>
+            } */}
+
+          </div>
+            <footer className="text-center text-2xl p-4 bg-blue-300 mt-20">Thank you for using Weather App</footer>
+        </>
       )}
+      
     </>
   );
 }

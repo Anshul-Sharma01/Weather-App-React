@@ -17,7 +17,6 @@ function WeatherCard({ weatherData }){
                 </div>
                 <p className="dark:text-gray-600">{weatherData?.forecast?.forecastday[0]?.day?.condition?.text}</p>
                 <p>Humidity : {weatherData?.forecast?.forecastday[0]?.day?.avghumidity}</p>
-                <button className="bg-cyan-300 mt-5  border-2 border-solid px-4 py-2 border-black rounded-lg hover:bg-cyan-500 hover:text-lg ease-in-out duration-75">View hourly Forecast</button>
             </div>
             <div className="flex flex-col items-center p-8 rounded-md w-60 sm:px-12 dark:bg-gray-50 dark:text-gray-800 shadow-2xl">
                 <div className="text-center">
@@ -30,7 +29,6 @@ function WeatherCard({ weatherData }){
                 </div>
                 <p className="dark:text-gray-600">{weatherData?.forecast?.forecastday[1]?.day?.condition?.text}</p>
                 <p>Humidity : {weatherData?.forecast?.forecastday[1]?.day?.avghumidity}</p>
-                <button className="bg-cyan-300 mt-5  border-2 border-solid px-4 py-2 border-black rounded-lg hover:bg-cyan-500 hover:text-lg ease-in-out duration-75">View hourly Forecast</button>
             </div>
             <div className="flex flex-col items-center p-8 rounded-md w-60 sm:px-12 dark:bg-gray-50 dark:text-gray-800 shadow-2xl">
                 <div className="text-center">
@@ -43,7 +41,6 @@ function WeatherCard({ weatherData }){
                 </div>
                 <p className="dark:text-gray-600">{weatherData?.forecast?.forecastday[2]?.day?.condition?.text}</p>
                 <p>Humidity : {weatherData?.forecast?.forecastday[2]?.day?.avghumidity}</p>
-                <button className="bg-cyan-300 mt-5  border-2 border-solid px-4 py-2 border-black rounded-lg hover:bg-cyan-500 hover:text-lg ease-in-out duration-75">View hourly Forecast</button>
             </div>
         </section>
     )
