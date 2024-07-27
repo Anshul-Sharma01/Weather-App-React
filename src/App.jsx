@@ -65,25 +65,7 @@ function App() {
             <h2 className="text-2xl text-center m-4 p-4 bg-yellow-200 tracking-widest font-mono">3-Day forecast</h2>
             <WeatherCard weatherData = {weatherData}/>
           </div>
-          <div>
-            <h2 className="text-2xl text-center m-4 p-4 tracking-wdiest font-sans bg-lime-300">Hourly Forecast</h2>
-            {
-              weatherData?.forecast?.forecastday.map((ele,ind) => (
-                <div className="flex flex-row gap-10 flex-wrap m-2 justify-center items-center w-full">
-                  <h3 className="text-2xl font-serif tracking-widest">Day-{ind + 1}</h3>
-                  {ele.hour && ele.hour.map((el) => (
-                    <HourlyCard key={el.time_epoch} weatherData={el} />
-                  ))}
-                  <br />
-
-                </div>
-              ))
-            }
-            {/* {
-              <HourlyCard weatherData={weatherData?.forecast?.forecastday[0].hour[16]}/>
-            } */}
-
-          </div>
+          
             <footer className="text-center text-2xl p-4 bg-blue-300 mt-20">Thank you for using Weather App</footer>
         </>
       )}
