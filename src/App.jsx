@@ -74,6 +74,7 @@ function App() {
                   {ele.hour && ele.hour.map((el) => (
                     <HourlyCard key={el.time_epoch} weatherData={el} />
                   ))}
+                  <br />
 
                 </div>
               ))
