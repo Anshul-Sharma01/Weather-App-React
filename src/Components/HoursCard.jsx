@@ -5,7 +5,7 @@ import { MdAvTimer } from "react-icons/md";
 function HoursCard({ weatherData }){
     return(
         <>
-            <div className="flex flex-col items-center p-8 rounded-md w-60 sm:px-12 dark:bg-gray-50 dark:text-gray-800 shadow-2xl">
+            <div className="flex flex-col items-center p-8 h-[450px] rounded-md w-60 sm:px-12 dark:bg-gray-50 dark:text-gray-800 shadow-2xl">
                     <div className="text-center">
                         <MdAvTimer className="inline" />
                         <p className="text-sm text-red-600">{weatherData?.time.split(" ")[1]}</p>

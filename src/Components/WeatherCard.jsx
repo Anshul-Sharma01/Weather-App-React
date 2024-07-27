@@ -32,7 +32,7 @@ function WeatherCard({ weatherData }){
                 </div>
                 <p className="dark:text-gray-600">{weatherData?.forecast?.forecastday[1]?.day?.condition?.text}</p>
                 <p>Humidity : {weatherData?.forecast?.forecastday[1]?.day?.avghumidity}</p>
-                <Link to={`/hourly-forecast/${weatherData?.location?.name}/1`}  className="px-5 py-2 border-red-500 border-solid border-2 rounded-lg mt-5 hover:text-white hover:bg-red-500 hover:border-white">Hourly Forecast</Link>
+                <Link to={`/hourly-forecast/${weatherData?.location?.name}/1`} className="text-center px-5 py-2 border-red-500 border-solid border-2 rounded-lg mt-5 hover:text-white hover:bg-red-500 hover:border-white">Hourly Forecast</Link>
             </div>
             <div className="flex flex-col items-center p-8 rounded-md w-60 sm:px-12 dark:bg-gray-50 dark:text-gray-800 shadow-2xl">
                 <div className="text-center">
@@ -45,7 +45,7 @@ function WeatherCard({ weatherData }){
                 </div>
                 <p className="dark:text-gray-600">{weatherData?.forecast?.forecastday[2]?.day?.condition?.text}</p>
                 <p>Humidity : {weatherData?.forecast?.forecastday[2]?.day?.avghumidity}</p>
-                <Link to={`/hourly-forecast/${weatherData?.location?.name}/2`}  className="px-5 py-2 border-red-500 border-solid border-2 rounded-lg mt-5 hover:text-white hover:bg-red-500 hover:border-white">Hourly Forecast</Link>
+                <Link to={`/hourly-forecast/${weatherData?.location?.name}/2`} className="text-center px-5 py-2 border-red-500 border-solid border-2 rounded-lg mt-5 hover:text-white hover:bg-red-500 hover:border-white">Hourly Forecast</Link>
             </div>
         </section>
     )

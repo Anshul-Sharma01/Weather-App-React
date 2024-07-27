@@ -2,14 +2,19 @@
 import { useParams } from "react-router-dom";
 import { fetchHourlyData } from "../Helpers/fetchData";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Loader from "./Loader";
 import HoursCard from "./HoursCard";
 
+
+
 function HourlyCard() {
+
     const [weatherData, setWeatherData] = useState(null);
     const [loading, setLoading] = useState(true);
     const { day, city } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (city && day !== undefined) {
@@ -36,7 +41,6 @@ function HourlyCard() {
     if (!weatherData || weatherData.error) {
         return <div>{weatherData?.error || 'No data available'}</div>;
     }
- 
     return (
         <>
             <section className="flex flex-row items-center justify-center gap-10 flex-wrap">
@@ -46,6 +50,8 @@ function HourlyCard() {
                     ))
                 }
             </section>
+                <button onClick={() => navigate(-1)} className="mt-20 ml-[350px] w-fit px-8 py-4 border-red-500 border-solid border-2 rounded-lg  hover:text-white hover:bg-red-500 hover:border-white">Go Back</button>
+
         </>
     );
 }
