@@ -10,6 +10,8 @@ async function fetchWeatherData(cityName){
     return response.data;
 }
 
+
+
 async function fetchHourlyData(cityName, day) {
     console.log(cityName);
     if (!cityName || typeof cityName !== 'string') {
