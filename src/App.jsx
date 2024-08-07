@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { fetchWeatherData } from './Helpers/fetchData.js';
 import WeatherCard from "./Components/WeatherCard.jsx";
-import HourlyCard from "./Components/HourlyCard.jsx";
+import IconsBar from "./Components/IconsBar.jsx";
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
@@ -38,7 +38,7 @@ function App() {
 
   return (
     <>
-      <h1 className="text-center text-3xl p-4 bg-blue-300">The Weather-App</h1>
+      <IconsBar Title={"Weather App"}/> 
       <div className="flex flex-col justify-center m-10 items-center min-h-[200px]">
         <form className="flex justify-center items-center flex-col shadow-xl p-10 min-w-[400px]" onSubmit={getWeatherData}>
           <div>
@@ -65,8 +65,8 @@ function App() {
             <h2 className="text-2xl text-center m-4 p-4 bg-yellow-200 tracking-widest font-mono">3-Day forecast</h2>
             <WeatherCard weatherData = {weatherData}/>
           </div>
-          
-            <footer className="text-center text-2xl p-4 bg-blue-300 mt-20">Thank you for using Weather App</footer>
+          <IconsBar className="mt-5" Title={"Thank you"} />
+
         </>
       )}
       
