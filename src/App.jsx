@@ -15,27 +15,36 @@ function App() {
 
   useEffect(() => {
     async function getLocation(){
-      try{
-        const location = await fetchCurrentLocation();
-        setLocation(location);
-        console.log("Location : ", location);
-      }catch(err){
-        console.log("Error fetching location : ", err);
-      }
+        try {
+            const location = await fetchCurrentLocation();
+            setLocation(location);
+            console.log("Location: ", location);
+            fetchLiveWeather(location); 
+        } catch(err) {
+            console.log("Error fetching location: ", err);
+        }
     }
     getLocation();
-    fetchLiveWeather();
-  }, [])
+}, []); 
 
-  async function fetchLiveWeather(){
-    try{
-      const liveLocation = await fetchCurrentWeather(Location[0], Location[1]);
-      setLiveWeatherData(liveLocation);
-      setLiveWeatherFetched(true);
-    }catch(err){
-      console.log(`Error showing live weather : ${err}`);
-    }
+async function fetchLiveWeather(location) {
+  if (!location || location.length < 2) return;
+
+  try {
+      const liveLocation = fetchCurrentWeather(location[0], location[1]);
+      toast.promise(liveLocation, {
+          loading: "Fetching live location weather",
+          success: (data) => {
+              setLiveWeatherData(data);
+              setLiveWeatherFetched(true);
+              return "Successfully fetched live location weather";
+          },
+          error: "Failed to fetch current location weather"
+      });
+  } catch(err) {
+      console.log(`Error showing live weather: ${err}`);
   }
+}
 
   
   
