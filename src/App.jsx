@@ -1,13 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
-import { fetchWeatherData } from './Helpers/fetchData.js';
+import { fetchCurrentWeather, fetchWeatherData } from './Helpers/fetchData.js';
 import WeatherCard from "./Components/WeatherCard.jsx";
 import IconsBar from "./Components/IconsBar.jsx";
+import fetchCurrentLocation from "./Helpers/fetchCurrentLocation.js";
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
+  const [liveWeatherData, setLiveWeatherData] = useState(null);
+  const [liveWeatherFetched, setLiveWeatherFetched] = useState(false);
   const [cityName, setCityName] = useState('');
+  const [Location, setLocation] = useState([]);
   const [dataFetched, setDataFetched] = useState(false);
+
+  useEffect(() => {
+    async function getLocation(){
+      try{
+        const location = await fetchCurrentLocation();
+        setLocation(location);
+        console.log("Location : ", location);
+      }catch(err){
+        console.log("Error fetching location : ", err);
+      }
+    }
+    getLocation();
+    fetchLiveWeather();
+  }, [])
+
+  async function fetchLiveWeather(){
+    try{
+      const liveLocation = await fetchCurrentWeather(Location[0], Location[1]);
+      setLiveWeatherData(liveLocation);
+      setLiveWeatherFetched(true);
+    }catch(err){
+      console.log(`Error showing live weather : ${err}`);
+    }
+  }
+
+  
   
   async function getWeatherData(e) {
     if(!cityName){
@@ -29,7 +59,9 @@ function App() {
       });
       const data = await weatherDataPromise;
       setWeatherData(data);
+      setLiveWeatherData(false);
       setDataFetched(true);
+      setLiveWeatherFetched(false);
       // console.log(data.current.condition.icon);
     } catch (err) {
       console.error(`Error fetching weather data: `, err);
@@ -59,6 +91,17 @@ function App() {
         </form>
 
       </div>
+      {
+        liveWeatherFetched && (
+          <>
+            <div>
+              <h2 className="text-2xl text-center m-4 p-4 bg-yellow-200 tracking-widest font-mono">3-Day forecast</h2>
+              <WeatherCard weatherData = {liveWeatherData}/>
+            </div>
+            <IconsBar className="mt-5" Title={"Thank you"} />
+          </>
+        )
+      }
       {dataFetched && (
         <>
           <div>

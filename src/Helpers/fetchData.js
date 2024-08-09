@@ -1,8 +1,8 @@
 import axios from "axios";
-
+const api_key = import.meta.env.VITE_API_KEY;
 
 async function fetchWeatherData(cityName){
-    const api_key = import.meta.env.VITE_API_KEY;
+    
     
     const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${api_key}&q=${cityName}&days=3`);
     console.log(response.data);
@@ -10,6 +10,10 @@ async function fetchWeatherData(cityName){
     return response.data;
 }
 
+async function fetchCurrentWeather(lat,long){
+    const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${api_key}&q=${lat},${long}&days=3`);
+    return response.data;
+}
 
 
 async function fetchHourlyData(cityName, day) {
@@ -22,7 +26,7 @@ async function fetchHourlyData(cityName, day) {
         throw new Error('Invalid day parameter. Should be 0, 1, or 2');
     }
 
-    const api_key = import.meta.env.VITE_API_KEY;
+    
     try {
         const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${api_key}&q=${cityName}&days=3`);
         return response.data.forecast.forecastday[day];
@@ -34,7 +38,8 @@ async function fetchHourlyData(cityName, day) {
 
 export{
     fetchWeatherData,
-    fetchHourlyData
+    fetchHourlyData,
+    fetchCurrentWeather
 }
 
 
