@@ -50,7 +50,10 @@ function HourlyCard() {
                     ))
                 }
             </section>
-                <button onClick={() => navigate(-1)} className="mt-20 ml-[350px] w-fit px-8 py-4 border-red-500 border-solid border-2 rounded-lg  hover:text-white hover:bg-red-500 hover:border-white">Go Back</button>
+            <div className="flex justify-center items-center m-20">
+
+                <button onClick={() => navigate(-1)} className="px-8 py-4 border-red-500 border-solid border-2 rounded-lg hover:text-white hover:bg-red-500 hover:border-white">Go Back</button>
+            </div>
 
         </>
     );

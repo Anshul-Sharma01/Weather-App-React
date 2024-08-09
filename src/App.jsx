@@ -18,8 +18,8 @@ function App() {
         try {
             const location = await fetchCurrentLocation();
             setLocation(location);
-            console.log("Location: ", location);
-            fetchLiveWeather(location); 
+            console.log("Location: ", Location);
+            fetchLiveWeather(Location); 
         } catch(err) {
             console.log("Error fetching location: ", err);
         }
