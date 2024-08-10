@@ -14,12 +14,12 @@ function App() {
   const [dataFetched, setDataFetched] = useState(false);
 
   useEffect(() => {
-    async function getLocation(){
+    async function getLocation() {
         try {
             const location = await fetchCurrentLocation();
             setLocation(location);
-            console.log("Location: ", Location);
-            fetchLiveWeather(Location); 
+            console.log("Location: ", location);
+            fetchLiveWeather(location); 
         } catch(err) {
             console.log("Error fetching location: ", err);
         }
@@ -27,24 +27,28 @@ function App() {
     getLocation();
 }, []); 
 
+
 async function fetchLiveWeather(location) {
   if (!location || location.length < 2) return;
 
   try {
-      const liveLocation = fetchCurrentWeather(location[0], location[1]);
-      toast.promise(liveLocation, {
-          loading: "Fetching live location weather",
-          success: (data) => {
-              setLiveWeatherData(data);
-              setLiveWeatherFetched(true);
-              return "Successfully fetched live location weather";
-          },
-          error: "Failed to fetch current location weather"
-      });
-  } catch(err) {
-      console.log(`Error showing live weather: ${err}`);
+    const liveLocationPromise = fetchCurrentWeather(location[0], location[1]);
+    toast.promise(liveLocationPromise, {
+      loading: "Fetching live location weather",
+      success: (data) => {
+        setLiveWeatherData(data);
+        setLiveWeatherFetched(true);
+        return "Successfully fetched live location weather";
+      },
+      error: "Failed to fetch current location weather"
+    });
+  } catch (err) {
+    console.log(`Error showing live weather: ${err}`);
+    toast.error("Failed to fetch live location weather. Please try again.");
   }
 }
+
+
 
   
   
@@ -93,7 +97,7 @@ async function fetchLiveWeather(location) {
             />
           </div>
           <br />
-          <button type="submit" className="border-solid border-2 px-4 py-2 bg-cyan-400 hover:bg-cyan-600 rounded-xl border-violet-400 text-lg">
+          <button type="submit" className="border-solid border-2 px-4 py-2 text-red-700 hover:text-white  bg-white hover:bg-red-400 rounded-xl border-red-700 text-lg">
             Show Weather Data
           </button>
           <Toaster />

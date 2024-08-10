@@ -23,6 +23,7 @@ function HoursCard({ weatherData }){
                         <p><FaRegSnowflake className="inline" /> : {weatherData?.chance_of_snow}%</p>
                         <p><CiCloudOn className="inline" /> : {weatherData?.cloud}%</p>
                         <p><FaWind className="inline" /> : {weatherData?.wind_kph} kph</p>
+
                     </div>
                 </div>
         </>

@@ -9,11 +9,16 @@ async function fetchWeatherData(cityName){
     console.log(response?.data?.forecast?.forecastday);
     return response.data;
 }
-
-async function fetchCurrentWeather(lat,long){
-    const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${api_key}&q=${lat},${long}&days=3`);
-    return response.data;
-}
+async function fetchCurrentWeather(lat, long) {
+    try {
+      const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${api_key}&q=${lat},${long}&days=3`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching current weather:", error);
+      throw error; // Ensure errors are propagated
+    }
+  }
+  
 
 
 async function fetchHourlyData(cityName, day) {
