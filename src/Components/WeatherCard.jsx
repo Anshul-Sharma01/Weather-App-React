@@ -1,69 +1,38 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-
-function WeatherCard({ weatherData }){
-    // console.log(iconSrc);
-
-    return(
-        <section className="flex gap-10 flex-wrap justify-center items-center"> 
-            <div className="flex flex-col items-center p-8 rounded-md w-60 sm:px-12 dark:bg-gray-50 dark:text-gray-800 shadow-2xl">
-                <div className="text-center">
-                    <h2 className="text-xl font-semibold">{weatherData?.location?.name}</h2>
-                    <p className="text-sm dark:text-gray-600">{weatherData?.forecast?.forecastday[0].date.split("-")[1]}/{weatherData?.forecast?.forecastday[0].date.split("-")[2]}</p>
+function WeatherCard({ weatherData }) {
+    return (
+        <section className="flex gap-10 flex-wrap justify-center items-center py-10 bg-gradient-to-r from-blue-100 to-blue-50">
+            {weatherData?.forecast?.forecastday.map((day, index) => (
+                <div key={index} className="relative flex flex-col items-center p-6 rounded-lg w-64 sm:w-72 bg-white shadow-lg transition-transform transform hover:scale-105 duration-300">
+                    <div className="text-center mb-4">
+                        <h2 className="text-2xl font-bold text-blue-600">{weatherData?.location?.name}</h2>
+                        <p className="text-sm text-gray-600">{day.date.split("-")[1]}/{day.date.split("-")[2]}</p>
+                    </div>
+                    <img 
+                        src={`https:${day.day.condition.icon}`} 
+                        alt={day.day.condition.text} 
+                        className="w-24 h-24 mb-4 transition-transform duration-500 transform hover:scale-125"
+                    />
+                    <div className="text-4xl font-extrabold text-blue-700 mb-2">
+                        {day.day.maxtemp_c}°<span className="mx-1 font-normal">/</span>{day.day.mintemp_c}°
+                    </div>
+                    <p className="text-gray-700 mb-2">{day.day.condition.text}</p>
+                    <p className="text-gray-500 mb-4">Humidity: {day.day.avghumidity}%</p>
+                    <Link 
+                        to={`/hourly-forecast/${weatherData?.location?.name}/${index}`} 
+                        className="mt-auto px-5 py-2 bg-blue-600 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 transition duration-300"
+                    >
+                        View Detailed Forecast
+                    </Link>
+                    <div className="absolute top-1 right-1 text-xs text-gray-500">
+                        UV Index: {day.day.uv}
+                    </div>
                 </div>
-                <img src={`https:${weatherData?.forecast?.forecastday[0]?.day?.condition?.icon}`} alt="" />
-                <div className="mb-2 text-3xl font-semibold">{weatherData?.forecast?.forecastday[0].day?.maxtemp_c}°
-                    <span className="mx-1 font-normal">/</span>{weatherData?.forecast?.forecastday[0].day?.mintemp_c}°
-                </div>
-                <p className="dark:text-gray-600">{weatherData?.forecast?.forecastday[0]?.day?.condition?.text}</p>
-                <p>Humidity : {weatherData?.forecast?.forecastday[0]?.day?.avghumidity}</p>
-                    <Link to={`/hourly-forecast/${weatherData?.location?.name}/0`} className="text-center px-5 py-2 border-red-500 border-solid border-2 rounded-lg mt-5 hover:text-white hover:bg-red-500 hover:border-white">Hourly Forecast</Link>
-                
-            </div>
-            <div className="flex flex-col items-center p-8 rounded-md w-60 sm:px-12 dark:bg-gray-50 dark:text-gray-800 shadow-2xl">
-                <div className="text-center">
-                    <h2 className="text-xl font-semibold">{weatherData?.location?.name}</h2>
-                    <p className="text-sm dark:text-gray-600">{weatherData?.forecast?.forecastday[1].date.split("-")[1]}/{weatherData?.forecast?.forecastday[1].date.split("-")[2]}</p>
-                </div>
-                <img src={`https:${weatherData?.forecast?.forecastday[1]?.day?.condition?.icon}`} alt="" />
-                <div className="mb-2 text-3xl font-semibold">{weatherData?.forecast?.forecastday[1].day?.maxtemp_c}°
-                    <span className="mx-1 font-normal">/</span>{weatherData?.forecast?.forecastday[1].day?.mintemp_c}°
-                </div>
-                <p className="dark:text-gray-600">{weatherData?.forecast?.forecastday[1]?.day?.condition?.text}</p>
-                <p>Humidity : {weatherData?.forecast?.forecastday[1]?.day?.avghumidity}</p>
-                <Link to={`/hourly-forecast/${weatherData?.location?.name}/1`} className="text-center px-5 py-2 border-red-500 border-solid border-2 rounded-lg mt-5 hover:text-white hover:bg-red-500 hover:border-white">Hourly Forecast</Link>
-            </div>
-            <div className="flex flex-col items-center p-8 rounded-md w-60 sm:px-12 dark:bg-gray-50 dark:text-gray-800 shadow-2xl">
-                <div className="text-center">
-                    <h2 className="text-xl font-semibold">{weatherData?.location?.name}</h2>
-                    <p className="text-sm dark:text-gray-600">{weatherData?.forecast?.forecastday[2].date.split("-")[1]}/{weatherData?.forecast?.forecastday[2].date.split("-")[2]}</p>
-                </div>
-                <img src={`https:${weatherData?.forecast?.forecastday[2]?.day?.condition?.icon}`} alt="" />
-                <div className="mb-2 text-3xl font-semibold">{weatherData?.forecast?.forecastday[2].day?.maxtemp_c}°
-                    <span className="mx-1 font-normal">/</span>{weatherData?.forecast?.forecastday[2].day?.mintemp_c}°
-                </div>
-                <p className="dark:text-gray-600">{weatherData?.forecast?.forecastday[2]?.day?.condition?.text}</p>
-                <p>Humidity : {weatherData?.forecast?.forecastday[2]?.day?.avghumidity}</p>
-                <Link to={`/hourly-forecast/${weatherData?.location?.name}/2`} className="text-center px-5 py-2 border-red-500 border-solid border-2 rounded-lg mt-5 hover:text-white hover:bg-red-500 hover:border-white">Hourly Forecast</Link>
-            </div>
+            ))}
         </section>
-    )
-
+    );
 }
 
-
 export default WeatherCard;
-
-
-
-
-
-
-
-
-
-
-
-
-

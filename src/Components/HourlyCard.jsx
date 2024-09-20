@@ -1,4 +1,3 @@
-
 import { useParams } from "react-router-dom";
 import { fetchHourlyData } from "../Helpers/fetchData";
 import { useEffect, useState } from "react";
@@ -7,10 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
 import HoursCard from "./HoursCard";
 
-
-
 function HourlyCard() {
-
     const [weatherData, setWeatherData] = useState(null);
     const [loading, setLoading] = useState(true);
     const { day, city } = useParams();
@@ -35,26 +31,45 @@ function HourlyCard() {
     }, [city, day]);
 
     if (loading) {
-        return <div className="w-full h-full flex justify-center items-center"><Loader/></div>;
+        return <div className="w-full h-full flex justify-center items-center"><Loader /></div>;
     }
 
     if (!weatherData || weatherData.error) {
-        return <div>{weatherData?.error || 'No data available'}</div>;
+        return <div className="text-center text-lg text-red-500">{weatherData?.error || 'No data available'}</div>;
     }
+
     return (
         <>
-            <section className="flex flex-row items-center justify-center gap-10 flex-wrap">
+            {/* Page heading and go back button at the top */}
+            <div className="flex justify-between items-center mt-8 mb-8 px-8">
+                <button 
+                    onClick={() => navigate(-1)} 
+                    className="px-6 py-3 border-2 border-blue-500 rounded-lg text-blue-500 hover:text-white hover:bg-blue-500 transition-colors duration-300"
+                >
+                    Go Back
+                </button>
+                <h1 className="text-3xl font-bold text-center text-gray-800">Hourly Forecast for {city} (Day {parseInt(day) + 1})</h1>
+                <div></div> {/* Empty div to balance the flex layout */}
+            </div>
+
+            {/* Main content - hourly weather cards */}
+            <section className="flex flex-wrap justify-center items-center gap-8 py-10 bg-blue-50 rounded-lg shadow-lg mx-8">
                 {
                     weatherData?.hour.map((ele) => (
-                        <HoursCard weatherData={ele} key={ele.time_epoch}/>
+                        <HoursCard weatherData={ele} key={ele.time_epoch} />
                     ))
                 }
             </section>
-            <div className="flex justify-center items-center m-20">
 
-                <button onClick={() => navigate(-1)} className="px-8 py-4 border-red-500 border-solid border-2 rounded-lg hover:text-white hover:bg-red-500 hover:border-white">Go Back</button>
+            {/* Go back button at the bottom */}
+            <div className="flex justify-center items-center mt-10 mb-10">
+                <button 
+                    onClick={() => navigate(-1)} 
+                    className="px-8 py-4 border-2 border-blue-500 rounded-lg text-blue-500 hover:text-white hover:bg-blue-500 transition-colors duration-300"
+                >
+                    Go Back
+                </button>
             </div>
-
         </>
     );
 }
