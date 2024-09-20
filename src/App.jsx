@@ -75,7 +75,6 @@ async function fetchLiveWeather(location) {
       setLiveWeatherData(false);
       setDataFetched(true);
       setLiveWeatherFetched(false);
-      // console.log(data.current.condition.icon);
     } catch (err) {
       console.error(`Error fetching weather data: `, err);
     }
@@ -83,49 +82,52 @@ async function fetchLiveWeather(location) {
 
   return (
     <>
-      <IconsBar Title={"Weather App"}/> 
-      <div className="flex flex-col justify-center m-10 items-center min-h-[200px]">
-        <form className="flex justify-center items-center flex-col shadow-xl p-10 min-w-[400px]" onSubmit={getWeatherData}>
+      <IconsBar Title={"Weather App"} />
+      
+
+      <div className="flex flex-col justify-center items-center m-10">
+        <form 
+          className="flex flex-col items-center shadow-lg p-8 bg-white rounded-lg max-w-md w-full" 
+          onSubmit={getWeatherData}
+        >
           <div>
             <input
               type="text"
               id="city"
-              className=" tracking-widest uppercase border-solid border-2 rounded-lg  border-slate-400 px-6 py-2"
+              className="w-full border border-gray-300 rounded-lg py-3 px-4 focus:outline-none focus:border-sky-500 text-lg uppercase"
               value={cityName}
-              placeholder="enter city name.."
+              placeholder="Enter city name..."
               onChange={(e) => setCityName(e.target.value)}
             />
           </div>
           <br />
-          <button type="submit" className="border-solid border-2 px-4 py-2 text-red-700 hover:text-white  bg-white hover:bg-red-400 rounded-xl border-red-700 text-lg">
-            Show Weather Data
+          <button 
+            type="submit" 
+            className="w-full py-3 px-4 mt-4 text-lg text-white bg-red-500 rounded-lg shadow-lg hover:bg-red-600 transition-all duration-300"
+          >
+            Show Weather
           </button>
           <Toaster />
         </form>
-
       </div>
-      {
-        liveWeatherFetched && (
-          <>
-            <div>
-              <h2 className="text-2xl text-center m-4 p-4 bg-yellow-200 tracking-widest font-mono">3-Day forecast</h2>
-              <WeatherCard weatherData = {liveWeatherData}/>
-            </div>
-            <IconsBar className="mt-5" Title={"Thank you"} />
-          </>
-        )
-      }
-      {dataFetched && (
-        <>
-          <div>
-            <h2 className="text-2xl text-center m-4 p-4 bg-yellow-200 tracking-widest font-mono">3-Day forecast</h2>
-            <WeatherCard weatherData = {weatherData}/>
-          </div>
-          <IconsBar className="mt-5" Title={"Thank you"} />
 
-        </>
+
+      {liveWeatherFetched && (
+        <div>
+          <h2 className="text-2xl text-center font-semibold tracking-widest text-white bg-blue-500 py-3 mt-6 rounded-lg shadow-lg">Live Weather Data</h2>
+          <WeatherCard weatherData={liveWeatherData} />
+          <IconsBar className="mt-5" Title={"Thank You"} />
+        </div>
       )}
-      
+
+
+      {dataFetched && (
+        <div>
+          <h2 className="text-2xl text-center font-semibold tracking-widest text-white bg-blue-500 py-3 mt-6 rounded-lg shadow-lg">3-Day Weather Forecast</h2>
+          <WeatherCard weatherData={weatherData} />
+          <IconsBar className="mt-5" Title={"Thank You"} />
+        </div>
+      )}
     </>
   );
 }
